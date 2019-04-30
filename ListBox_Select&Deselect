@@ -1,0 +1,55 @@
+Private Sub CommandButton1_Click()
+
+    Dim i As Integer
+    
+    For i = 0 To ListBox1.ListCount - 1
+    
+            If ListBox1.Selected(i) = True Then
+            
+                ListBox2.AddItem ListBox1.List(i)
+                
+            End If
+            
+        Next
+        
+    Dim j As Integer
+    
+    For j = ListBox1.ListCount - 1 To 0 Step -1
+    
+        If ListBox1.Selected(j) = True Then
+        
+            ListBox1.RemoveItem (j)
+            
+        End If
+        
+    Next
+        
+End Sub
+
+Private Sub CommandButton2_Click()
+
+    Dim i As Integer
+    
+    For i = 0 To ListBox2.ListCount - 1
+    
+            If ListBox2.Selected(i) = True Then
+            
+                ListBox1.AddItem ListBox2.List(i)
+                
+            End If
+            
+    Next
+
+    Dim j As Integer
+    
+    For j = ListBox2.ListCount - 1 To 0 Step -1
+    
+        If ListBox2.Selected(j) = True Then
+        
+            ListBox2.RemoveItem (j)
+            
+        End If
+    
+    Next
+    
+End Sub
