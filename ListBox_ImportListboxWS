@@ -1,0 +1,65 @@
+Private Sub CommandButton3_Click()
+
+    Dim i As Integer, r As Integer
+    Dim directory As String, TSdirectory As String
+    Dim LB2String As String
+    Dim FileCheck As Object
+    Dim TargetSheet As Workbook, ImportSheet As Workbook
+    Dim ws As Worksheet
+    
+    With Application
+        .DisplayAlerts = False
+        .ScreenUpdating = False
+    End With
+    
+    directory = "C:\Users\liuch\Documents\VBA\Copy File Test"
+    TSdirectory = "C:\Users\liuch\Documents\VBA\Copy File Test\FinalExcel.xlsx"
+    
+    Set FileCheck = CreateObject("Scripting.FileSystemObject")
+    
+    For i = 0 To ListBox2.ListCount - 1
+        
+        If FileCheck.FileExists(TSdirectory) = True Then
+            
+        Set TargetSheet = Workbooks.Open(Filename:=TSdirectory)
+        Set ImportSheet = Workbooks.Open(Filename:=directory & "\" & ListBox2.List(i))
+            
+            'importing ws from source to target
+            For Each ws In ImportSheet.Worksheets
+            
+                r = TargetSheet.Worksheets.Count
+                ImportSheet.Worksheets(ws.Name).Copy after:=TargetSheet.Worksheets(r)
+        
+            Next ws
+
+        Else
+        
+        Set TargetSheet = Workbooks.Add
+        Set ImportSheet = Workbooks.Open(Filename:=directory & "\" & ListBox2.List(i))
+        
+            With TargetSheet
+                .SaveAs Filename:=TSdirectory
+            End With
+        
+            'importing ws from source to target
+            For Each ws In ImportSheet.Worksheets
+            
+                r = TargetSheet.Worksheets.Count
+                ImportSheet.Worksheets(ws.Name).Copy after:=TargetSheet.Worksheets(r)
+        
+            Next ws
+            
+            TargetSheet.Worksheets("Sheet1").Delete
+        
+        End If
+            
+    Next
+    
+    With Application
+        .DisplayAlerts = True
+        .ScreenUpdating = True
+    End With
+    
+    Unload UserForm1
+
+End Sub
