@@ -31,6 +31,11 @@ Private Sub CommandButton3_Click()
                 ImportSheet.Worksheets(ws.Name).Copy after:=TargetSheet.Worksheets(r)
         
             Next ws
+            
+        TargetSheet.Save
+        
+        TargetSheet.Close
+        ImportSheet.Close
 
         Else
         
@@ -50,6 +55,12 @@ Private Sub CommandButton3_Click()
             Next ws
             
             TargetSheet.Worksheets("Sheet1").Delete
+            On Error Resume Next
+            
+        Targetsheet.Save
+        
+        Targetsheet.close
+        Importsheet.close
         
         End If
             
